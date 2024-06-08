@@ -1,6 +1,7 @@
 const fs = require('fs-extra');
 const path = require('path');
 const ejs = require('ejs');
+const { execSync } = require('child_process');
 
 const templatesDir = path.join(__dirname, 'templates');
 
@@ -32,6 +33,9 @@ const generateModule = async (name) => {
 
       await fs.writeFile(outputPath, rendered);
     }
+
+    console.log(`Installing dependencies for ${name} module...`);
+    execSync(`cd ${moduleDir} && npm install --save @nestjs/common @nestjs/swagger`, { stdio: 'inherit' });
 
     console.log(`Module ${name} generated successfully!`);
   } catch (err) {
