@@ -10,8 +10,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@nestjs/common": "^10.3.9",
+    "@nestjs/swagger": "^7.3.1",
     "commander": "^12.1.0",
     "ejs": "^3.1.10",
     "fs-extra": "^11.2.0"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2"
   }
 }

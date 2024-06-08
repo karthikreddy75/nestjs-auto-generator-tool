@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Create<%= name %>Dto } from './<%= name.toLowerCase() %>.create.dto';
-import { Update<%= name %>Dto } from './<%= name.toLowerCase() %>.update.dto';
+import { Create<%= name %>Dto } from './dto/<%= name.toLowerCase() %>.create.dto';
+import { Update<%= name %>Dto } from './dto/<%= name.toLowerCase() %>.update.dto';
 
 @Injectable()
 export class <%= name %>Service {

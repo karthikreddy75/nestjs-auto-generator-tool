@@ -6,10 +6,11 @@ program
   .description('NestJS Module Generator');
 
 program
-  .command('generate <name>')
-  .description('Generate a new module with controllers, services, etc.')
-  .action((name) => {
-    generateModule(name);
+ .command('generate <names...>')
+ .description('Generate new modules with controllers, services, etc.')
+ .action((names) => {
+    names.forEach(name => generateModule(name));
   });
+console.log(process.argv);
 
 program.parse(process.argv);
