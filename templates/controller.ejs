@@ -1,0 +1,34 @@
+import { Controller, Get, Post, Body, Param, Delete, Patch } from '@nestjs/common';
+import { <%= name %>Service } from './<%= name.toLowerCase() %>.service';
+import { Create<%= name %>Dto } from './<%= name.toLowerCase() %>.create.dto';
+import { Update<%= name %>Dto } from './<%= name.toLowerCase() %>.update.dto';
+
+@Controller('<%= name.toLowerCase() %>')
+export class <%= name %>Controller {
+  constructor(private readonly <%= name.toLowerCase() %>Service: <%= name %>Service) {}
+
+  @Post()
+  create(@Body() create<%= name %>Dto: Create<%= name %>Dto) {
+    return this.<%= name.toLowerCase() %>Service.create(create<%= name %>Dto);
+  }
+
+  @Get()
+  findAll() {
+    return this.<%= name.toLowerCase() %>Service.findAll();
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.<%= name.toLowerCase() %>Service.findOne(+id);
+  }
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() update<%= name %>Dto: Update<%= name.toLowerCase() %>Dto) {
+    return this.<%= name.toLowerCase() %>Service.update(+id, update<%= name.toLowerCase() %>Dto);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.<%= name.toLowerCase() %>Service.remove(+id);
+  }
+}
