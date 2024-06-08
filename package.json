@@ -1,6 +1,6 @@
 {
   "name": "nestjs-auto-generator-tool",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "an npm package which automatically generates modules, controllers, services, DTOs, and Entities for NestJS projects.",
   "main": "index.js",
   "bin": {
