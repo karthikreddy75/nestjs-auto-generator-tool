@@ -2,8 +2,8 @@ import { Controller, Get, Post, Body, Param, Delete, Patch } from '@nestjs/commo
 import { <%= name %>Service } from './<%= name.toLowerCase() %>.service';
 import { Create<%= name %>Dto } from './dto/<%= name.toLowerCase() %>.create.dto';
 import { Update<%= name %>Dto } from './dto/<%= name.toLowerCase() %>.update.dto';
-import { ApiTags, ApiOperation, ApiResponse, ApiBody, ApiParam } from '@nestjs/swagger';
-import { <%= name %>Dto } from './dto/<%= name.toLowerCase() %>.dto.ts'; 
+import { ApiResponse, ApiBody, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import { Response<%= name %>Dto } from './dto/<%= name.toLowerCase() %>.response.dto';
 
 @ApiTags('<%= name %>')
 @Controller('<%= name.toLowerCase() %>')
@@ -13,7 +13,7 @@ export class <%= name %>Controller {
   @Post()
   @ApiOperation({ summary: 'Create a <%= name.toLowerCase() %>' })
   @ApiBody({ type: Create<%= name %>Dto })
-  @ApiResponse({ status: 201, description: 'The <%= name.toLowerCase() %> has been successfully created.', type: <%= name %>Dto })
+  @ApiResponse({ status: 201, description: 'The <%= name.toLowerCase() %> has been successfully created.', type: Response<%= name %>Dto })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   create(@Body() create<%= name %>Dto: Create<%= name %>Dto) {
     return this.<%= name.toLowerCase() %>Service.create(create<%= name %>Dto);
@@ -21,7 +21,7 @@ export class <%= name %>Controller {
 
   @Get()
   @ApiOperation({ summary: 'Get all <%= name.toLowerCase() %>s' })
-  @ApiResponse({ status: 200, description: 'Returns all <%= name.toLowerCase() %>s.', type: [<%= name %>Dto] })
+  @ApiResponse({ status: 200, description: 'Returns all <%= name.toLowerCase() %>s.', type: [Response<%= name %>Dto] })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   findAll() {
     return this.<%= name.toLowerCase() %>Service.findAll();
@@ -30,7 +30,7 @@ export class <%= name %>Controller {
   @Get(':id')
   @ApiOperation({ summary: 'Get a <%= name.toLowerCase() %> by ID' })
   @ApiParam({ name: 'id', description: 'ID of the <%= name.toLowerCase() %>' })
-  @ApiResponse({ status: 200, description: 'Returns the <%= name.toLowerCase() %> by ID.', type: <%= name %>Dto })
+  @ApiResponse({ status: 200, description: 'Returns the <%= name.toLowerCase() %> by ID.', type: Response<%= name %>Dto })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   findOne(@Param('id') id: string) {
     return this.<%= name.toLowerCase() %>Service.findOne(+id);
@@ -40,7 +40,7 @@ export class <%= name %>Controller {
   @ApiOperation({ summary: 'Update a <%= name.toLowerCase() %> by ID' })
   @ApiParam({ name: 'id', description: 'ID of the <%= name.toLowerCase() %>' })
   @ApiBody({ type: Update<%= name %>Dto })
-  @ApiResponse({ status: 200, description: 'The <%= name.toLowerCase() %> has been successfully updated.', type: <%= name %>Dto })
+  @ApiResponse({ status: 200, description: 'The <%= name.toLowerCase() %> has been successfully updated.', type: Response<%= name %>Dto })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   update(@Param('id') id: string, @Body() update<%= name %>Dto: Update<%= name %>Dto) {
     return this.<%= name.toLowerCase() %>Service.update(+id, update<%= name %>Dto);
