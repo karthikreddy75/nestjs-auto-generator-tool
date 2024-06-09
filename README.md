@@ -31,3 +31,7 @@ npx nestjs-auto-generator-tool generate <name>
 - Time-Saving: Reduce the amount of boilerplate code and speed up your development process.
 
 - Consistency: Ensure a consistent structure and coding style across your NestJS project.
+
+
+## Demo Application Usuage :
+
