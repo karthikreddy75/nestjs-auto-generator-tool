@@ -4,9 +4,10 @@ const ejs = require('ejs');
 const { execSync } = require('child_process');
 
 const templatesDir = path.join(__dirname, 'templates');
+const appModulePath = path.join(process.cwd(), 'src', 'app.module.ts');
 
 const generateModule = async (name) => {
-  const moduleDir = path.join(process.cwd(), name);
+  const moduleDir = path.join(process.cwd(), 'src', name);
   const entityDir = path.join(moduleDir, 'entity');
 
   try {
@@ -37,10 +38,48 @@ const generateModule = async (name) => {
     console.log(`Installing dependencies for ${name} module...`);
     execSync(`cd ${moduleDir} && npm install --save @nestjs/common @nestjs/swagger`, { stdio: 'inherit' });
 
-    console.log(`Module ${name} generated successfully!`);
+    await updateAppModule(name);
+
+    console.log(`Module ${name} generated successfully in src/${name}!`);
   } catch (err) {
     console.error('Error generating module:', err);
   }
 };
+
+const updateAppModule = async (name) => {
+  try {
+    const appModuleContent = await fs.readFile(appModulePath, 'utf-8');
+    
+    const importStatement = `import { ${name}Module } from './${name}/${name.toLowerCase()}.module';\n`;
+    const updatedContent = appModuleContent.replace(/(imports\s*:\s*\[)([^]*?)(\])/,
+      (match, p1, p2, p3) => {
+        if (p2.includes(`${name}Module`)) {
+          return match;
+        }
+        const importsArray = p2.trim().split('\n').map(line => line.trim()).filter(line => line.length > 0);
+        if (importsArray.length === 0) {
+          return `${p1}\n    ${name}Module\n${p3}`;
+        }
+        const lastImport = importsArray[importsArray.length - 1];
+        if (lastImport.endsWith(',')) {
+          importsArray.push(`    ${name}Module`);
+        } else {
+          importsArray.push(`    ,${name}Module,`);
+        }
+        return `${p1}\n${importsArray.join('\n')}\n${p3}`;
+      }
+    );
+
+
+    const finalContent = importStatement + updatedContent;
+    console.log(finalContent);
+    await fs.writeFile(appModulePath, finalContent);
+    console.log(`${name}Module added to app.module.ts`);
+  } catch (err) {
+    console.error('Error updating app.module.ts:', err);
+  }
+};
+
+
 
 module.exports = { generateModule };
