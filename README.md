@@ -35,7 +35,8 @@ npx nestjs-auto-generator-tool generate <name>
 
 ## Demo Application Usuage :
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/BrLWt04ff3Q" frameborder="0" allowfullscreen></iframe>
+[![Click to Watch](https://img.youtube.com/vi/BrLWt04ff3Q/0.jpg)](https://www.youtube.com/embed/BrLWt04ff3Q)
+
 
 
 
